@@ -5,7 +5,7 @@ list_of_files = [
     f"src/__init__.py",
     f"src/components/__init__.py",
     f"src/pipeline/__init__.py",
-    f"src/utils",
+    f"src/utils.py",
     f"src/logger.py",
     f"src/exception.py",
     "requirements.txt",
