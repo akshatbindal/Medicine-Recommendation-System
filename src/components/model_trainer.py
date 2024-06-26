@@ -33,18 +33,14 @@ class ModelTrainer:
             train_array = pd.read_csv(train_data_path)
             test_array = pd.read_csv(test_data_path)
 
-            X_train,y_train,X_test,y_test=(
-                train_array[:,:-1],
-                train_array[:,-1],
-                test_array[:,:-1],
-                test_array[:,-1]
-            )
+            X_train = train_array.iloc[:,:-1]
+            X_test = test_array.iloc[:,:-1]
 
             #Encoding the target column
             label_encoder = LabelEncoder()
-            y_e_train = label_encoder.fit_transform(y_train)
-            y_e_test = label_encoder.fit_transform(y_test)
-
+            y_train = label_encoder.fit_transform(train_array.iloc[:,-1])
+            y_test = label_encoder.fit_transform(test_array.iloc[:,-1])
+       
             models = {
                 "Logictic Regression" : LogisticRegression(),
                 "Logistic Regression with L1 Regularization": LogisticRegression(penalty='l1', solver='liblinear'),
@@ -57,7 +53,7 @@ class ModelTrainer:
                 'SVC': SVC(kernel='linear')
             }
 
-            model_report = self.evaluate_models(X_train=X_train,y_train=y_e_train,X_test=X_test,y_e_test=y_test,models=models)
+            model_report = self.evaluate_models(X_train, y_train, X_test, y_test, models)
             
             sorted_model_report = model_report.sort_values(by=['Accuracy', 'F1 Score'], ascending=[False, False])
             best_model_name = sorted_model_report.iloc[0]['Model Name']
@@ -77,7 +73,7 @@ class ModelTrainer:
         except CustomException as e:
             raise CustomException(e, sys)
 
-    def evaluate_models(X_train, y_train,X_test,y_test,models):
+    def evaluate_models(self,X_train,y_train,X_test,y_test,models):
         try:
             results = []
 
@@ -90,7 +86,7 @@ class ModelTrainer:
                 f1score = f1_score(y_test, y_test_pred, average='macro')
 
                 results.append({
-                    'Model Name': list(models.key())[i],
+                    'Model Name': list(models.keys())[i],
                     'Accuracy': accuracy,
                     'F1 Score': f1score
                 })

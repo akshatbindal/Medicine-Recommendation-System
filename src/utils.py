@@ -4,7 +4,6 @@ import sys
 import numpy as np 
 import pandas as pd
 import pickle
-from sklearn.metrics import accuracy_score, f1_score, confusion_matrix, classification_report
 
 from src.exception import CustomException
 
