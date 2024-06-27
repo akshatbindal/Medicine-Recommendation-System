@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Disease</title>
+</head>
+<body>
+    <h1>Predict Disease from Symptoms</h1>
+    
+    <form action="/predictdata" method="post">
+        <label for="symptom1">Symptom 1:</label>
+        <select name="symptom1" id="symptom1">
+            {% for symptom in symptoms_list %}
+                <option value="{{ symptom }}">{{ symptom }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="symptom2">Symptom 2:</label>
+        <select name="symptom2" id="symptom2">
+            {% for symptom in symptoms_list %}
+                <option value="{{ symptom }}">{{ symptom }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="symptom3">Symptom 3:</label>
+        <select name="symptom3" id="symptom3">
+            {% for symptom in symptoms_list %}
+                <option value="{{ symptom }}">{{ symptom }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="symptom4">Symptom 4:</label>
+        <select name="symptom4" id="symptom4">
+            {% for symptom in symptoms_list %}
+                <option value="{{ symptom }}">{{ symptom }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if predicted_disease %}
+        <h2>Prediction Results</h2>
+        <p><strong>Predicted Disease:</strong> {{ predicted_disease }}</p>
+        <p><strong>Description:</strong> {{ description }}</p>
+        <p><strong>Precautions:</strong> {{ precaution }}</p>
+        <p><strong>Medicine:</strong> {{ medicine }}</p>
+        <p><strong>Diet:</strong> {{ diet }}</p>
+        <p><strong>Workout:</strong> {{ workout }}</p>
+    {% endif %}
+</body>
+</html>
