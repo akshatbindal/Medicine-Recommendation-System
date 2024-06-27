@@ -13,16 +13,12 @@ class PredictPipeline:
     def predict(self,features):
         try:
             model_path=os.path.join("artifacts","model.pkl")
-            print("Before Loading")
             model=load_object(file_path=model_path)
-            print("After Loading")
             preds=model.predict(features)
             return preds
         
         except Exception as e:
             raise CustomException(e,sys)
-
-
 
 class CustomData:
     def __init__(self, symptom1, symptom2, symptom3, symptom4):

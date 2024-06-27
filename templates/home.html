@@ -4,50 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Predict Disease</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f0f4f7;
+        }
+        .container {
+            margin-top: 50px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .results h2 {
+            color: #333;
+        }
+        .results p {
+            font-size: 16px;
+            color: #666;
+        }
+        .results strong {
+            color: #333;
+        }
+        .list-group-item {
+            background-color: #f8f9fa;
+        }
+    </style>
 </head>
 <body>
-    <h1>Predict Disease from Symptoms</h1>
-    
-    <form action="/predictdata" method="post">
-        <label for="symptom1">Symptom 1:</label>
-        <select name="symptom1" id="symptom1">
-            {% for symptom in symptoms_list %}
-                <option value="{{ symptom }}">{{ symptom }}</option>
-            {% endfor %}
-        </select><br><br>
+    <div class="container">
+        <h1 class="text-center">Predict Disease from Symptoms</h1>
+        
+        <form action="/predictdata" method="post">
+            <div class="form-group">
+                <label for="symptom1">Symptom 1:</label>
+                <select class="form-control" name="symptom1" id="symptom1">
+                    {% for symptom in symptoms_list %}
+                        <option value="{{ symptom }}">{{ symptom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <label for="symptom2">Symptom 2:</label>
-        <select name="symptom2" id="symptom2">
-            {% for symptom in symptoms_list %}
-                <option value="{{ symptom }}">{{ symptom }}</option>
-            {% endfor %}
-        </select><br><br>
+            <div class="form-group">
+                <label for="symptom2">Symptom 2:</label>
+                <select class="form-control" name="symptom2" id="symptom2">
+                    {% for symptom in symptoms_list %}
+                        <option value="{{ symptom }}">{{ symptom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <label for="symptom3">Symptom 3:</label>
-        <select name="symptom3" id="symptom3">
-            {% for symptom in symptoms_list %}
-                <option value="{{ symptom }}">{{ symptom }}</option>
-            {% endfor %}
-        </select><br><br>
+            <div class="form-group">
+                <label for="symptom3">Symptom 3:</label>
+                <select class="form-control" name="symptom3" id="symptom3">
+                    {% for symptom in symptoms_list %}
+                        <option value="{{ symptom }}">{{ symptom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <label for="symptom4">Symptom 4:</label>
-        <select name="symptom4" id="symptom4">
-            {% for symptom in symptoms_list %}
-                <option value="{{ symptom }}">{{ symptom }}</option>
-            {% endfor %}
-        </select><br><br>
+            <div class="form-group">
+                <label for="symptom4">Symptom 4:</label>
+                <select class="form-control" name="symptom4" id="symptom4">
+                    {% for symptom in symptoms_list %}
+                        <option value="{{ symptom }}">{{ symptom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <input type="submit" value="Predict">
-    </form>
+            <button type="submit" class="btn btn-success btn-block">Predict</button>
+        </form>
 
-    {% if predicted_disease %}
-        <h2>Prediction Results</h2>
-        <p><strong>Predicted Disease:</strong> {{ predicted_disease }}</p>
-        <p><strong>Description:</strong> {{ description }}</p>
-        <p><strong>Precautions:</strong> {{ precaution }}</p>
-        <p><strong>Medicine:</strong> {{ medicine }}</p>
-        <p><strong>Diet:</strong> {{ diet }}</p>
-        <p><strong>Workout:</strong> {{ workout }}</p>
-    {% endif %}
+        {% if predicted_disease %}
+            <div class="results mt-4">
+                <h2>Prediction Results</h2>
+                <p><strong>Predicted Disease:</strong> {{ predicted_disease }}</p>
+                <p><strong>Description:</strong> {{ description }}</p>
+                
+                <p><strong>Precautions</strong></p>
+                <ul class="list-group">
+                    {% for item in precaution %}
+                        <li class="list-group-item">{{ item }}</li>
+                    {% endfor %}
+                </ul>
+                <br>        
+                <p><strong>Medicine</strong></p>
+                <ul class="list-group">
+                    {% for item in medicine %}
+                        <li class="list-group-item">{{ item }}</li>
+                    {% endfor %}
+                </ul>
+                <br>
+                <p><strong>Diet</strong></p>
+                <ul class="list-group">
+                    {% for item in diet %}
+                        <li class="list-group-item">{{ item }}</li>
+                    {% endfor %}
+                </ul>
+                <br>
+                <p><strong>Workout</strong></p>
+                <ul class="list-group">
+                    {% for item in workout %}
+                        <li class="list-group-item">{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
